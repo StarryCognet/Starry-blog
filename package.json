@@ -1,21 +1,25 @@
 {
-  "name": "my-vuepress-site",
-  "description": "A VuePress project",
-  "version": "0.0.1",
+  "name": "vuepress-theme-hope-template",
+  "description": "A project of vuepress-theme-hope",
+  "version": "2.0.0",
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "docs:build": "vuepress build docs",
-    "docs:clean-dev": "vuepress dev docs --clean-cache",
-    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress-vite build src",
+    "docs:clean-dev": "vuepress-vite dev src --clean-cache",
+    "docs:dev": "vuepress-vite dev src",
     "docs:update-package": "pnpm dlx vp-update"
   },
   "devDependencies": {
-    "@vuepress/bundler-vite": "2.0.0-rc.20",
-    "@vuepress/theme-default": "2.0.0-rc.88",
-    "sass-embedded": "^1.86.0",
-    "vue": "^3.5.13",
-    "vuepress": "2.0.0-rc.20",
-    "@vuepress/plugin-blog": "2.0.0-rc.86"
+    "@vuepress/bundler-vite": "2.0.0-rc.24",
+    "sass-embedded": "^1.89.2",
+    "vue": "^3.5.17",
+    "vuepress": "2.0.0-rc.24",
+    "vuepress-theme-hope": "2.0.0-rc.94"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }
