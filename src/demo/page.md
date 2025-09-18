@@ -1,70 +1,74 @@
 ---
-# This is the title of the article
-title: Page Config
-# This is the icon of the page
+# 这是文章的标题
+title: 页面配置
+# 你可以自定义封面图片
+cover: /assets/images/cover1.jpg
+# 这是页面的图标
 icon: file
-# This control sidebar order
+# 这是侧边栏的顺序
 order: 3
-# Set author
+# 设置作者
 author: Ms.Hope
-# Set writing time
+# 设置写作时间
 date: 2020-01-01
-# A page can have multiple categories
+# 一个页面可以有多个分类
 category:
-  - Guide
-# A page can have multiple tags
+  - 使用指南
+# 一个页面可以有多个标签
 tag:
-  - Page config
-  - Guide
-# this page is sticky in article list
+  - 页面配置
+  - 使用指南
+# 此页面会在文章列表置顶
 sticky: true
-# this page will appear in starred articles
+# 此页面会出现在星标文章中
 star: true
-# You can customize footer content
-footer: Footer content for test
-# You can customize copyright content
-copyright: No Copyright
+# 你可以自定义页脚
+footer: 这是测试显示的页脚
+# 你可以自定义版权信息
+copyright: 无版权
 ---
 
-Content before `more` comment is regarded as page excerpt.
+`more` 注释之前的内容被视为文章摘要。
 
 <!-- more -->
 
-## Page Title
+## 页面标题
 
 The first H1 title in Markdown will be regarded as page title.
 
-You can also set title in Markdown's Frontmatter:
+Markdown 中的第一个 H1 标题会被视为页面标题。
+
+你可以在 Markdown 的 Frontmatter 中设置页面标题。
 
 ```md
 ---
-title: Page Title
+title: 页面标题
 ---
 ```
 
-## Page Information
+## 页面信息
 
-You can set page information in Markdown's Frontmatter.
+你可以在 Markdown 的 Frontmatter 中设置页面信息。
 
-- The author is Ms.Hope.
-- The writing date is January 1, 2020
-- Category is "Guide"
-- Tags are "Page Config" and "Guide"
+- 作者设置为 Ms.Hope。
+- 写作日期为 2020 年 1 月 1 日
+- 分类为 “使用指南”
+- 标签为 “页面配置” 和 “使用指南”
 
-## Page Content
+## 页面内容
 
-You are free to write your Markdown here.
+你可以自由在这里书写你的 Markdown。
 
-::: tip Assets
+::: tip 图片引入
 
-- You can place images besides your Markdown files nd use **relative links**.
-- For images in `.vuepress/public` directory, please use absolute links (i.e.: starting with `/`).
+- 你可以将图片和 Markdown 文件放置在一起使用相对路径进行引用。
+- 对于 `.vuepress/public` 文件夹的图片，请使用绝对链接 `/` 进行引用。
 
 :::
 
-## Components
+## 组件
 
-Each markdown page is converted into a Vue component, which means you can use Vue syntax in Markdown:
+每个 Markdown 页面都会被转换为一个 Vue 组件，这意味着你可以在 Markdown 中使用 Vue 语法：
 
 {{ 1 + 1 }}
 
@@ -76,7 +80,7 @@ Each markdown page is converted into a Vue component, which means you can use Vu
 
 <!-- markdownlint-enable MD033 -->
 
-You can also create and import your own components.
+你也可以创建并引入你自己的组件。
 
 <MyComponent />
 
@@ -92,13 +96,13 @@ const MyComponent = defineComponent({
 
     return () => [
       h('p', [
-        h('span','Input: '),
+        h('span','输入: '),
         h('input', {
           value: input.value,
           onInput,
         }),
       ]),
-      h('p', [h('span','Output: '), input.value]),
+      h('p', [h('span','输出: '), input.value]),
     ];
   },
 });
@@ -106,11 +110,11 @@ const MyComponent = defineComponent({
 
 ---
 
-The theme contains some useful components. Here are some examples:
+主题包含一些有用的组件。这里是一些例子:
 
-- A dark blue badge text badge at the end of line. <Badge text="Badge text" color="#242378" />
+- 文字结尾应该有深蓝色的 徽章文字 徽章。 <Badge text="徽章文字" color="#242378" />
 
-- A card:
+- 一个卡片:
 
   ```component VPCard
   title: Mr.Hope

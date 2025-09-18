@@ -5,21 +5,12 @@ import theme from "./theme.js";
 export default defineUserConfig({
   base: "/",
 
-locales: {
-  "/zh/": {
-    lang: "zh-CN",
-    title: "StarryCognet",
-    description: "记录技术与生活",
-  },
-  "/": {
-    lang: "en-US",
-    title: "Starry Blog",
-    description: "A blog demo for vuepress-theme-hope",
-  },
-},
+  lang: "zh-CN",
+  title: "博客演示",
+  description: "vuepress-theme-hope 的博客演示",
 
   theme,
 
-  // Enable it with pwa
+  // 和 PWA 一起启用
   // shouldPrefetch: false,
 });

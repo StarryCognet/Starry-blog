@@ -3,6 +3,6 @@ icon: circle-info
 cover: /assets/images/cover3.jpg
 ---
 
-# Intro Page
+# 介绍页
 
-Place your introduction and profile here.
+将你的个人介绍和档案放置在此处。
