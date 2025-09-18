@@ -3,10 +3,10 @@ home: true
 layout: Blog
 icon: house
 title: 博客主页
-heroImage: https://theme-hope-assets.vuejs.press/logo.svg
-heroText: 你博客的名称
+heroImage: https://img.starrycognition.cn/%E5%A4%B4%E5%83%8F/%E5%9C%86%E8%A7%92-Kawaii%E7%9D%A6%20(%E5%B0%8F-%E5%9C%86%E8%A7%92).png
+heroText: StarryCogneition
 heroFullScreen: true
-tagline: 你可以在这里放置你的口号与标语
+tagline: 在黑暗森林里，点亮一座安全声明
 projects:
   - icon: folder-open
     name: 项目名称
@@ -33,7 +33,7 @@ projects:
     desc: 伙伴详细介绍
     link: https://你的伙伴链接
 
-  - icon: https://theme-hope-assets.vuejs.press/logo.svg
+  - icon: https://img.starrycognition.cn/%E5%A4%B4%E5%83%8F/%E5%9C%86%E8%A7%92-Kawaii%E7%9D%A6%20(%E5%B0%8F-%E5%9C%86%E8%A7%92).png
     name: 自定义项目
     desc: 自定义详细介绍
     link: https://你的自定义链接
