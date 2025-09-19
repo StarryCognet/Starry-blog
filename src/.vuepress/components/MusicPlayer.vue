@@ -58,18 +58,26 @@ interface Song {
   url: string
   cover: string
 }
+// const playlist: Song[] = [
+//   {
+//     name: '太空漫步Remix',
+//     artist: 'miHoyo-Mix',
+//     url: 'https://img.starrycognition.cn/Music/%E5%A4%AA%E7%A9%BA%E6%BC%AB%E6%AD%A5%20(Kirara%20Magic%20Remix).mp3',
+//     cover: 'https://img.starrycognition.cn/%E5%A4%B4%E5%83%8F/StarryCognet%E9%80%9A%E7%94%A8%E5%A4%B4%E5%83%8F(%E5%B0%8F).png'
+//   },
+//   {
+//     name: '太空漫步Remix(高音质)',
+//     artist: 'miHoyo-Mix',
+//     url: 'https://img.starrycognition.cn/Music/%E5%A4%AA%E7%A9%BA%E6%BC%AB%E6%AD%A5%20(Kirara%20Magic%20Remix).wav',
+//     cover: 'https://img.starrycognition.cn/%E5%A4%B4%E5%83%8F/StarryCognet%E9%80%9A%E7%94%A8%E5%A4%B4%E5%83%8F(%E5%B0%8F).png'
+//   }
+// ]
 const playlist: Song[] = [
   {
-    name: '太空漫步Remix',
-    artist: 'miHoyo-Mix',
-    url: 'https://img.starrycognition.cn/Music/%E5%A4%AA%E7%A9%BA%E6%BC%AB%E6%AD%A5%20(Kirara%20Magic%20Remix).mp3',
-    cover: 'https://img.starrycognition.cn/%E5%A4%B4%E5%83%8F/StarryCognet%E9%80%9A%E7%94%A8%E5%A4%B4%E5%83%8F(%E5%B0%8F).png'
-  },
-  {
-    name: '太空漫步Remix(高音质)',
-    artist: 'miHoyo-Mix',
-    url: 'https://img.starrycognition.cn/Music/%E5%A4%AA%E7%A9%BA%E6%BC%AB%E6%AD%A5%20(Kirara%20Magic%20Remix).wav',
-    cover: 'https://img.starrycognition.cn/%E5%A4%B4%E5%83%8F/StarryCognet%E9%80%9A%E7%94%A8%E5%A4%B4%E5%83%8F(%E5%B0%8F).png'
+    name: '测试音乐',
+    artist: 'Test',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelixSong1.mp3',
+    cover: '/assets/images/cover2.jpg'
   }
 ]
 
