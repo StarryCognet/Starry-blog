@@ -33,7 +33,7 @@ projects:
     desc: 伙伴详细介绍
     link: https://你的伙伴链接
 
-  - icon: https://img.starrycognition.cn/%E5%A4%B4%E5%83%8F/%E5%9C%86%E8%A7%92-Kawaii%E7%9D%A6%20(%E5%B0%8F-%E5%9C%86%E8%A7%92).png
+  - icon: https://theme-hope-assets.vuejs.press/logo.svg
     name: 自定义项目
     desc: 自定义详细介绍
     link: https://你的自定义链接
