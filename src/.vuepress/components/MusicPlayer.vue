@@ -77,7 +77,7 @@ const playlist: Song[] = [
     name: '测试音乐',
     artist: 'Test',
     url: 'https://www.soundhelix.com/examples/mp3/SoundHelixSong1.mp3',
-    cover: '/assets/images/cover2.jpg'
+    cover: 'https://img.starrycognition.cn/%E5%A4%B4%E5%83%8F/StarryCognet%E9%80%9A%E7%94%A8%E5%A4%B4%E5%83%8F(%E5%B0%8F).png'
   }
 ]
 
