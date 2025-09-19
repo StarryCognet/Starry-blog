@@ -28,7 +28,8 @@ jobs:
           node-version: 22
           cache: 'pnpm'
           cache-dependency-path: |
-            ${{ github.workspace }}/pnpm-lock.yaml  # ← 消除警告
+            ${{ github.workspace }}/pnpm-lock.yaml
+            ${{ github.workspace }}/package.json
 
       - name: 安装依赖
         run: |
