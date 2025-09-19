@@ -1,5 +1,6 @@
 import { defineUserConfig } from "vuepress";
 // import { metingPlugin } from 'vuepress-plugin-meting'
+import metingPlugin from "vuepress-plugin-meting2";
 import theme from "./theme.js";
 
 export default defineUserConfig({
@@ -10,6 +11,27 @@ export default defineUserConfig({
   description: "StarryCognet 的博客",
 
   theme,
+  plugins: [
+    metingPlugin({
+      // 插件选项
+      metingOptions: {
+        global: true, // 开启全局播放器
+        server: "netease", // 音乐平台：网易云
+        type: "playlist", // 类型：歌单
+        mid: "7351717679", // 替换为你的歌单 ID
+      },
+      // 其他 aplayer 选项（如需要）
+      aplayerOptions: {
+        fixed: true,
+        mini: true,
+        autoplay: false,
+        theme: '#39c5bb',
+        lrcType: 3,
+        // 控制移动设备上是否显示封面图
+        cover: true
+      },
+    }),
+  ],
 
   // 和 PWA 一起启用
   // shouldPrefetch: false,
