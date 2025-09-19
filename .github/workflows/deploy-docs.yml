@@ -26,10 +26,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'pnpm'
-          cache-dependency-path: |
-            ${{ github.workspace }}/pnpm-lock.yaml
-            ${{ github.workspace }}/package.json
+          cache: ''   # ← 删除缓存，日志 0 警告
 
       - name: 安装依赖
         run: |
