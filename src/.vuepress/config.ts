@@ -25,10 +25,12 @@ export default defineUserConfig({
         fixed: true,
         mini: true,
         autoplay: false,
-        theme: '#39c5bb',
+        theme: '#39b5cc',
         lrcType: 3,
         // 控制移动设备上是否显示封面图
-        cover: true
+        cover: false,
+        // 使播放器列表默认处于折叠状态
+        listFolded: true
       },
     }),
   ],
