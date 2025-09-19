@@ -1,1 +1,100 @@
 // place your custom styles here
+/* 自定义 APlayer 歌词样式 */
+// .aplayer-lrc-contents {
+//   text-align: left !important; // 强制歌词文本左对齐
+//   transform: none !important;  // 取消可能的变换居中
+//   left: 20px !important;       // 调整左偏移量，根据需要调整
+//   right: auto !important;      // 确保右自动
+// }
+
+/* 可选：调整迷你模式下播放器的样式，确保鼠标悬停时显示封面 */
+// .aplayer-mini .aplayer-info {
+//   transition: all 0.3s ease;
+// }
+// .aplayer-mini:hover .aplayer-info {
+//   height: 66px; // 悬停时显示更多信息（可能包括封面）
+// }
+// .aplayer-pic {
+//   transition: opacity 0.3s ease;
+// }
+// .aplayer-mini .aplayer-pic {
+//   opacity: 0; // 迷你模式下默认隐藏封面
+// }
+// .aplayer-mini:hover .aplayer-pic {
+//   opacity: 1; // 悬停时显示封面
+// }
+
+// .aplayer-lrc{
+//   position: relative !important;
+//   left: 0% !important;
+//   top: 0px;
+//   text-align: center !important;
+//   background-color: #ffffff00;
+//   width: 80px;
+//   padding: 18px 10px;
+//   padding-left: 30px;
+//   border-radius: 0 15px 15px 0;
+// }
+
+.aplayer-lrc{
+  position: relative !important;
+  left: 500% !important;
+  text-align: center !important;
+}
+
+.aplayer-body{
+  transform: translate(-70px,-30px);
+  transition: transform 0.3s ease;
+  backdrop-filter: blur(20px);
+  border-radius: 0 10px 10px 0 !important;
+  background-color: rgba(51, 131, 145, 0.342) !important;
+}
+
+.aplayer-miniswitcher{
+  border-radius: 0 10px 10px 0 !important;
+  transition: transform 0.3s ease;
+  background-color: #39b5cc !important;
+  cursor: pointer;
+  transform: translate(5px,0);
+  width: 20px !important;
+}
+
+.aplayer-body:hover{
+  transform: translate(0,-30px);
+}
+
+.aplayer-pic:hover{
+  transform: translate(0px,-10px) scale(1);
+  // z-index: 99;
+}
+
+// .aplayer-body:hover .aplayer-miniswitcher{
+//   transform: translate(5px,0);
+// }
+
+.aplayer-body.locked {
+  transform: translate(0,-30px);
+}
+
+.aplayer-body.locked:hover {
+  transform: translate(0, -30px);
+}
+
+
+.aplayer-pic{
+  margin: 3px;
+  border-radius: 2px 2px 2px 10px; /* 左上 右上 右下 左下 */
+}
+
+.aplayer-withlist{
+  background-color: #00000000 !important;
+  backdrop-filter: blur(20px);
+  background-color: rgba(255, 255, 255, 0.534) !important;
+  position: relative;
+  bottom: -30px !important;
+  // border-radius: 0 20px 0 0 !important;/* 左上 右上 右下 左下 */
+  // overflow: hidden !important;
+}
+.aplayer-withlist ol{
+  max-height: 240px !important;
+}

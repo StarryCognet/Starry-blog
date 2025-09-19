@@ -30,7 +30,7 @@ export default defineUserConfig({
         // 控制移动设备上是否显示封面图
         cover: false,
         // 使播放器列表默认处于折叠状态
-        listFolded: true
+        listFolded: true,
       },
     }),
   ],
