@@ -11,11 +11,13 @@
     "docs:update-package": "pnpm dlx vp-update"
   },
   "devDependencies": {
+    "@iconify/vue": "^5.0.0",
     "@vuepress/bundler-vite": "2.0.0-rc.24",
     "sass-embedded": "^1.89.2",
     "vue": "^3.5.17",
     "vuepress": "2.0.0-rc.24",
-    "vuepress-theme-hope": "2.0.0-rc.94"
+    "vuepress-theme-hope": "2.0.0-rc.94",
+    "xgplayer": "^3.0.23"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
