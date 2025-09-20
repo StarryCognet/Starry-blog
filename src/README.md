@@ -2,7 +2,7 @@
 home: true
 layout: Blog
 icon: house
-title: 博客主页
+title: 主页
 heroImage: https://img.starrycognition.cn/%E5%A4%B4%E5%83%8F/%E5%9C%86%E8%A7%92-Kawaii%E7%9D%A6%20(%E5%B0%8F-%E5%9C%86%E8%A7%92).png
 heroText: StarryCogneition
 heroFullScreen: true

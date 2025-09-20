@@ -7,8 +7,8 @@ export default hopeTheme({
   hostname: "https://mister-hope.github.io",
 
   author: {
-    name: "Mr.Hope",
-    url: "https://mister-hope.com",
+    name: "StarryCognet",
+    url: "https://starrycognition.cn",
   },
 
   logo: "https://theme-hope-assets.vuejs.press/logo.svg",
