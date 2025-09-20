@@ -6,6 +6,7 @@ title: 主页
 heroImage: https://img.starrycognition.cn/%E5%A4%B4%E5%83%8F/%E5%9C%86%E8%A7%92-Kawaii%E7%9D%A6%20(%E5%B0%8F-%E5%9C%86%E8%A7%92).png
 heroText: StarryCogneition
 heroFullScreen: true
+bgImage: https://img.starrycognition.cn/starry-blog-assets/blog-background.png
 tagline: 在黑暗森林里，点亮一座安全声明
 projects:
   - icon: folder-open
@@ -41,7 +42,7 @@ projects:
 footer: 自定义你的页脚文字
 ---
 
-这是一个博客主页的案例。
+这是一个博客主页。
 
 要使用此布局，你应该在页面前端设置 `layout: Blog` 和 `home: true`。
 
