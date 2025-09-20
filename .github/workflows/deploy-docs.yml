@@ -4,6 +4,14 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'src/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: write
@@ -26,7 +34,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: ''
+          cache: 'pnpm'
 
       - name: 安装依赖
         run: |
@@ -35,10 +43,24 @@ jobs:
 
       - name: 构建文档
         env:
-          NODE_OPTIONS: --max_old_space_size=8192
+          NODE_OPTIONS: --max_old_space_size=4096  # 减少内存限制
         run: |
           pnpm run docs:build
           echo > src/.vuepress/dist/.nojekyll
+
+      - name: 验证构建结果
+        run: |
+          if [ ! -d "src/.vuepress/dist" ]; then
+            echo "构建失败：dist 目录不存在"
+            exit 1
+          fi
+          
+          if [ -z "$(ls -A src/.vuepress/dist)" ]; then
+            echo "构建失败：dist 目录为空"
+            exit 1
+          fi
+          
+          echo "构建验证成功"
 
       - name: 部署文档
         uses: JamesIves/github-pages-deploy-action@v4
