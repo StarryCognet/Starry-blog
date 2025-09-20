@@ -21,6 +21,8 @@ jobs:
 
       - name: 设置 pnpm
         uses: pnpm/action-setup@v4
+        with:
+          version: 9
 
 
       - name: 设置 Node.js
@@ -28,6 +30,7 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
 
       - name: 安装依赖
         run: |
