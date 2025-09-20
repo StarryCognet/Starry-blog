@@ -28,31 +28,31 @@ sticky: true
 
 [一小时快速上手Electron.pdf](https://www.yuque.com/attachments/yuque/0/2025/pdf/42939896/1737339268340-d8dc7a24-bf7a-4d34-b820-18ca8289ad8f.pdf)
 
-![Electron](https://xuxin123.com/wp-content/uploads/2021/03/2021-03-01-720x340.jpg)
+![Electron](https://img.starrycognition.cn/starry-blog-assets/notes/%E5%89%8D%E7%AB%AF-Electron%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0-1.png)
 
 
 Web 技术来构建桌⾯应⽤程序，它的本质是结合了 **<font style="color:#DF2A3F;">Chromium</font>** 和 **<font style="color:#DF2A3F;">Node.js</font>**，现在⼴泛⽤于桌⾯应⽤程序开发，例如这写桌⾯应⽤都⽤到了 Electron 技术：
 
-+ ![](https://cdn.nlark.com/yuque/0/2025/png/42939896/1737339739943-f518d4f4-6850-41fb-97c0-325fb02aa3f0.png)VisualStudioCode
-+ ![](https://cdn.nlark.com/yuque/0/2025/png/42939896/1737339786702-7d3de92f-b111-4ef3-9d26-f0ef61146655.png)GitHubDesktop
-+ ![](https://cdn.nlark.com/yuque/0/2025/png/42939896/1737339804187-bc483b7a-8c46-49d8-9c3a-490c5e54f2c6.png)1Password
-+ ![](https://cdn.nlark.com/yuque/0/2025/png/42939896/1737339833427-878ce119-fb6a-4fbd-8d63-b52de2b976e5.png)新版 QQ
++ ![=20x](https://img.starrycognition.cn/starry-blog-assets/notes/%E5%89%8D%E7%AB%AF-Electron%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0-2.png)VisualStudioCode
++ ![=20x](https://img.starrycognition.cn/starry-blog-assets/notes/%E5%89%8D%E7%AB%AF-Electron%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0-3.png)GitHubDesktop
++ ![=20x](https://img.starrycognition.cn/starry-blog-assets/notes/%E5%89%8D%E7%AB%AF-Electron%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0-4.png)1Password
++ ![qq =20x](https://img.starrycognition.cn/starry-blog-assets/notes/%E5%89%8D%E7%AB%AF-Electron%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0-5.png)新版 QQ
 
 # Electron 的优势
-1. **可跨平台：**同⼀套代码可以构建出能在：Windows、macOS、Linux 上运⾏的应⽤程序。
-2. **上⼿容易：**使⽤ Web 技术就可以轻松完成开发桌⾯应⽤程序。
-3. **底层权限：**允许应⽤程序访问⽂件系统、操作系统等底层功能，从⽽实现复杂的系统交互。
-4. **社区⽀持：**拥有⼀个庞⼤且活跃的社区，开发者可以轻松找到⽂档、教程和开源库。
+1. 可跨平台：同⼀套代码可以构建出能在：Windows、macOS、Linux 上运⾏的应⽤程序。
+2. 上⼿容易：使⽤ Web 技术就可以轻松完成开发桌⾯应⽤程序。
+3. 底层权限：允许应⽤程序访问⽂件系统、操作系统等底层功能，从⽽实现复杂的系统交互。
+4. 社区⽀持：拥有⼀个庞⼤且活跃的社区，开发者可以轻松找到⽂档、教程和开源库。
 
 # Electron 技术架构
 ## 技术架构
-![](https://cdn.nlark.com/yuque/0/2025/png/42939896/1737340036521-e36298a8-3dd9-47aa-ad7e-47728c376633.png)
+![](https://img.starrycognition.cn/starry-blog-assets/notes/%E5%89%8D%E7%AB%AF-Electron%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0-6.png)
 
 ## 进程模型
 > 此处我们只是先了解⼀下进程模型，后⾯会详细讲解。
 >
 
-![](https://cdn.nlark.com/yuque/0/2025/png/42939896/1737340085734-9eb33f7b-36c7-461e-b92f-36bf63abdfdd.png)
+![](https://img.starrycognition.cn/starry-blog-assets/notes/%E5%89%8D%E7%AB%AF-Electron%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0-7.png)
 
 # 搭建一个工程
 `init`初始化命令会提示您在项目初始化配置中设置一些值 为本教程的目的，有几条规则需要遵循：
@@ -130,7 +130,7 @@ npm start
 
 + 效果如下：
 
-![](https://cdn.nlark.com/yuque/0/2025/png/42939896/1737340603478-7c20bb93-e3cd-40ef-8296-13125763051d.png)
+![](https://img.starrycognition.cn/starry-blog-assets/notes/%E5%89%8D%E7%AB%AF-Electron%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0-8.png)
 
 # 加载本地页面
 + 创建 `pages/index.html` 编写内容：
@@ -221,7 +221,7 @@ npm i nodemon -D
 # 主进程与渲染进程
 下图是 Chrome 浏览器的程序架构，图来⾃于[Chrome 漫画](https://www.google.com)。
 
-![](https://cdn.nlark.com/yuque/0/2025/png/42939896/1737341586084-93056f12-a7de-4afb-af29-d3000f4bdd97.png)
+![](https://img.starrycognition.cn/starry-blog-assets/notes/%E5%89%8D%E7%AB%AF-Electron%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0-9.png)
 
 Electron 应⽤的结构与上图⾮常相似，在 Electron 中主要控制两类进程：主进程、渲染器进程。
 
@@ -229,13 +229,13 @@ Electron 应⽤的结构与上图⾮常相似，在 Electron 中主要控制两�
 每个 Electron 应⽤都有⼀个单⼀的主进程，作为应⽤程序的⼊⼝点。 主进程在 Node.js 环境中运⾏，它具有 require 模块和使⽤所有 Node.js API 的能⼒，主进程的核⼼就是：**使用Browserwindow 来创建和管理窗口**
 
 ## 渲染进程
-每个 BrowserWindow 实例都对应⼀个单独的渲染器进程，运⾏在渲染器进程中的代码，必须遵守⽹⻚标准，这也就意味着：**渲染器进程无权直接访问**`**require**`**或使用任何**`**Node.js**`** 的API。**
+每个 BrowserWindow 实例都对应⼀个单独的渲染器进程，运⾏在渲染器进程中的代码，必须遵守⽹⻚标准，这也就意味着：**渲染器进程无权直接访问**`require`**或使用任何**`Node.js` 的API。
 
 > 问题产⽣：处于渲染器进程的⽤户界⾯，该怎样才与 Node.js 和 Electron 的原⽣桌⾯功能进⾏交互呢？
 >
 
 # Preload 脚本
-预加载（Preload）脚本是运⾏在渲染进程中的， 但它是在**<font style="color:#DF2A3F;">网页内容加载之前</font>**执⾏的，这意味着它具有⽐普通渲染器代码更⾼的权限，可以访问 Node.js 的 API，同时⼜可以与⽹⻚内容进⾏安全的交互。
+预加载（Preload）脚本是运⾏在渲染进程中的， 但它是在<font style="color:#DF2A3F;">网页内容加载之前</font>执⾏的，这意味着它具有⽐普通渲染器代码更⾼的权限，可以访问 Node.js 的 API，同时⼜可以与⽹⻚内容进⾏安全的交互。
 
 简单说：它是 Node.js 和 Web API 的桥梁，Preload 脚本可以安全地将部分 Node.js 功能暴露给⽹⻚，从⽽减少安全⻛险。
 
@@ -291,7 +291,7 @@ btn.addEventListener('click',()=>{
 
 5. 整体⽂件结构如下：
 
-![](https://cdn.nlark.com/yuque/0/2025/png/42939896/1737342027551-1a08a219-9920-4604-ba95-721361986555.png)
+![](https://img.starrycognition.cn/starry-blog-assets/notes/%E5%89%8D%E7%AB%AF-Electron%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0-10.png)
 
 # 进程通信（IPC）
 > 值得注意的是：
@@ -310,10 +310,10 @@ btn.addEventListener('click',()=>{
 + `Electron` 中，主要使⽤ [ipcMain](https://www.electronjs.org/zh/docs/latest/api/ipc-main) 和 [ipcRenderer](https://www.electronjs.org/zh/docs/latest/api/ipc-renderer) 来定义“通道”，进⾏进程通信。
 
 ## 渲染进程➡进程（单向）
-概述：在<font style="color:#117CEE;">渲染器进程</font>中[ ipcRenderer.send](https://www.electronjs.org/zh/docs/latest/api/ipc-renderer) 发送消息，在**<font style="color:#DF2A3F;">主进程</font>**中使⽤**<font style="color:#DF2A3F;"> ipcMain.on</font>** 接收消息。常⽤于：**在 Web 中调用主进程的 API**，例如下⾯的这个需求：
+概述：在<font style="color:#117CEE;">渲染器进程</font>中[ ipcRenderer.send](https://www.electronjs.org/zh/docs/latest/api/ipc-renderer) 发送消息，在<font style="color:#DF2A3F;">主进程</font>中使⽤<font style="color:#DF2A3F;"> ipcMain.on</font> 接收消息。常⽤于：**在 Web 中调用主进程的 API**，例如下⾯的这个需求：
 
 :::info
-**需求：点击按钮后，在⽤户的 D 盘创建⼀个 **`**hello.txt**`** ⽂件，⽂件内容来⾃于⽤户输⼊。**
+**需求：点击按钮后，在⽤户的 D 盘创建⼀个 **`hello.txt`** ⽂件，⽂件内容来⾃于⽤户输⼊。**
 
 :::
 
@@ -334,7 +334,7 @@ btn.addEventListener('click',()=>{
 })
 ```
 
-2. `preload.js` 中使⽤ `**<font style="color:#117CEE;">ipcRenderer.send('信道',参数)</font>**` 发送消息，与主进程通信。
+2. `preload.js` 中使⽤ `<font style="color:#117CEE;">ipcRenderer.send('信道',参数)</font>` 发送消息，与主进程通信。
 
 ```javascript
 const {contextBridge,ipcRenderer} = require('electron')
@@ -367,7 +367,7 @@ function createFile(event,data){
 ```
 
 ## 渲染进程↔主进程（双向）
-概述：<font style="color:#117CEE;">渲染进程</font>通过[ipcRenderer.invoke](https://www.electronjs.org/zh/docs/latest/api/ipc-renderer#ipcrendererinvokechannel-args) 发送消息，**<font style="color:#DF2A3F;">主进程</font>**使⽤ **<font style="color:#DF2A3F;">ipcMain.handle</font>** 接收并处理消息。
+概述：<font style="color:#117CEE;">渲染进程</font>通过[ipcRenderer.invoke](https://www.electronjs.org/zh/docs/latest/api/ipc-renderer#ipcrendererinvokechannel-args) 发送消息，<font style="color:#DF2A3F;">主进程</font>使⽤ **<font style="color:#DF2A3F;">ipcMain.handle</font>** 接收并处理消息。
 
 > 备注： ipcRender.invoke 的返回值是 Promise 实例。
 >
@@ -394,7 +394,7 @@ btn.addEventListener('click',async()=>{
 })
 ```
 
-2. `preload.js` 中使⽤ `**<font style="color:#117CEE;">ipcRenderer.invoke('信道',参数)</font>**` 发送消息，与主进程通信。
+2. `preload.js` 中使⽤ `<font style="color:#117CEE;">ipcRenderer.invoke('信道',参数)</font>` 发送消息，与主进程通信。
 
 ```javascript
 const {contextBridge,ipcRenderer} = require('electron')
@@ -407,7 +407,7 @@ contextBridge.exposeInMainWorld('myAPI',{
 })
 ```
 
-3. 主进程中，在加载⻚⾯之前，使⽤ `**<font style="color:#DF2A3F;">ipcMain.handle('信道',回调)</font>**` 接收消息，并配置回调函数。
+3. 主进程中，在加载⻚⾯之前，使⽤ `<font style="color:#DF2A3F;">ipcMain.handle('信道',回调)</font>` 接收消息，并配置回调函数。
 
 ```javascript
 // ⽤于创建窗⼝
@@ -447,7 +447,7 @@ function logMessage(event,str){
 }
 ```
 
-2. `preload.js` 中使⽤ `**<font style="color:#117CEE;">ipcRenderer.on ('信道',回调)</font>**` 接收消息，并配置回调函数。
+2. `preload.js` 中使⽤ `<font style="color:#117CEE;">ipcRenderer.on ('信道',回调)</font>` 接收消息，并配置回调函数。
 
 ```javascript
 const {contextBridge,ipcRenderer} = require('electron')
@@ -460,7 +460,7 @@ contextBridge.exposeInMainWorld('myAPI',{
 })
 ```
 
-3. 主进程中，在合适的时候，使⽤ `**<font style="color:#DF2A3F;">win.webContents.send('信道',数据)</font>**` 发送消息。
+3. 主进程中，在合适的时候，使⽤ `<font style="color:#DF2A3F;">win.webContents.send('信道',数据)</font>` 发送消息。
 
 ```javascript
 // ⽤于创建窗⼝
@@ -547,5 +547,5 @@ electron-vite 快速、简单且功能强⼤，旨在开箱即⽤。
 
 **官⽹地址：**[https://cn-evite.netlify.app/](https://cn-evite.netlify.app/)
 
-![](https://cdn.nlark.com/yuque/0/2025/png/42939896/1737343854364-dfd39500-4039-4daa-b71c-06301a9cd122.png)
+![](https://img.starrycognition.cn/starry-blog-assets/notes/%E5%89%8D%E7%AB%AF-Electron%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0-11.png)
 
