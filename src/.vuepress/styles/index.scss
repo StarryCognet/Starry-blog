@@ -98,3 +98,53 @@
 .aplayer-withlist ol{
   max-height: 240px !important;
 }
+
+
+
+/* 让 PhotoSwipe 图片横排 + 自适应 */
+// .PhotoSwipe img {
+//   display: inline-block;
+//   width: 25%;          /* 一行 3 图，可调 25% = 4 图 */
+//   margin: 4px;
+//   border-radius: 8px;
+//   vertical-align: top;
+//   object-fit: cover;   /* 裁切成正方形 */
+// }
+
+/* 真正瀑布流：无间距 + 自适应 + 暗色模式 */
+.PhotoSwipe {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;                    /* 无间距 */
+  justify-content: flex-start;
+}
+
+.PhotoSwipe img {
+  flex: 1 1 auto;
+  width: calc(33.333% - 0px); /* 一行 3 图，无间距 */
+  max-width: calc(33.333% - 0px);
+  height: 240px;              /* 固定高度 → 真正瀑布流 */
+  object-fit: cover;          /* 裁切成正方形 */
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.PhotoSwipe img:hover {
+  transform: scale(1.02);
+}
+
+/* 自适应：手机 2 图，平板 3 图，桌面 4 图 */
+@media (max-width: 768px) {
+  .PhotoSwipe img {
+    width: calc(50% - 0px);
+    max-width: calc(50% - 0px);
+  }
+}
+
+@media (max-width: 480px) {
+  .PhotoSwipe img {
+    width: 100%;
+    max-width: 100%;
+  }
+}
