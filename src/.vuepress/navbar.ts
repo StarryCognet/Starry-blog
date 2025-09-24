@@ -48,4 +48,5 @@ export default navbar([
   // "/zh/posts/",
   "/gallery/gallery", // ← 加这一行
   // "/zh/about",
+  "drive/drive",
 ]);
