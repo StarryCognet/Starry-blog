@@ -14,6 +14,8 @@
     "@iconify/vue": "^5.0.0",
     "@vuepress/bundler-vite": "2.0.0-rc.24",
     "sass-embedded": "^1.89.2",
+    "unplugin-auto-import": "^20.2.0",
+    "unplugin-vue-components": "^29.1.0",
     "vue": "^3.5.17",
     "vuepress": "2.0.0-rc.24",
     "vuepress-plugin-meting2": "^1.4.2",
@@ -24,5 +26,8 @@
     "onlyBuiltDependencies": [
       "esbuild"
     ]
+  },
+  "dependencies": {
+    "ant-design-vue": "4.0.0-rc.6"
   }
 }
