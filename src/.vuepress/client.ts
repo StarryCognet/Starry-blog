@@ -1,5 +1,5 @@
 import { defineClientConfig } from "vuepress/client";
-import GlobalMusicPlayer from "./components/GlobalMusicPlayer.vue";
+// import GlobalMusicPlayer from "./components/GlobalMusicPlayer.vue";
 import Not from "./components/Not.vue";
 import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
@@ -8,16 +8,16 @@ import { ref, computed, watchEffect, h } from "vue";
 export default defineClientConfig({
   enhance({ app }) {
     app.use(ElementPlus);
-    app.component("GlobalMusicPlayer", GlobalMusicPlayer);
+    // app.component("GlobalMusicPlayer", GlobalMusicPlayer);
     app.component("Not", Not);
   },
   setup() {
     if (typeof window !== "undefined") {
       // 添加 APlayer CSS
-      const link = document.createElement("link");
+      /*const link = document.createElement("link");
       link.rel = "stylesheet";
       link.href = "https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css";
-      document.head.appendChild(link);
+      document.head.appendChild(link);*/
 
       // 监听主题变化并应用 Element Plus 主题
       const update = () => (document.documentElement.dataset.theme || "light") as "light" | "dark";
@@ -48,7 +48,7 @@ export default defineClientConfig({
       });
 
       // 在页面加载后添加播放器
-      window.addEventListener("load", () => {
+      /*window.addEventListener("load", () => {
         const container = document.createElement("div");
         container.id = "global-music-player";
         document.body.appendChild(container);
@@ -67,7 +67,7 @@ export default defineClientConfig({
             }
           }
         });
-      });
+      });*/
     }
   },
 });

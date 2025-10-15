@@ -1,3 +1,4 @@
+<!--
 <template>
   <meting-js server="netease" type="playlist" id="7052482444" fixed="true" mini="true" autoplay="false" theme="#2980b9">
   </meting-js>
@@ -16,3 +17,4 @@ export default {
   }
 }
 </script>
+-->

@@ -1,6 +1,6 @@
 import { defineUserConfig } from "vuepress";
 // import { metingPlugin } from 'vuepress-plugin-meting'
-import metingPlugin from "vuepress-plugin-meting2";
+// import metingPlugin from "vuepress-plugin-meting2";
 import theme from "./theme.js";
 
 export default defineUserConfig({
@@ -12,7 +12,7 @@ export default defineUserConfig({
 
   theme,
   plugins: [
-    metingPlugin({
+    /*metingPlugin({
       // 插件选项
       metingOptions: {
         global: true, // 开启全局播放器
@@ -32,7 +32,7 @@ export default defineUserConfig({
         // 使播放器列表默认处于折叠状态
         listFolded: true,
       },
-    }),
+    }),*/
   ],
 
   // 和 PWA 一起启用
