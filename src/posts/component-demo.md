@@ -1,7 +1,5 @@
 ---
 title: 组件使用演示
-sidebar: false
-footer: false
 ---
 
 # 组件使用演示
@@ -23,5 +21,3 @@ footer: false
 <Card>
   你也可以不传入任何属性，使用默认值。
 </Card>
-
-<!-- <Notification></Notification> -->

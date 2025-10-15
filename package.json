@@ -28,5 +28,6 @@
     ]
   },
   "dependencies": {
+    "naive-ui": "^2.43.1"
   }
 }
