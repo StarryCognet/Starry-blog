@@ -47,39 +47,51 @@
   transition: transform 0.3s ease;
   backdrop-filter: blur(20px);
   border-radius: 0 10px 10px 0 !important;
-  background-color: rgba(51, 131, 145, 0.342) !important;
+  background-color: rgba(51, 131, 145, 0) !important;
+}
+
+.aplayer-body.moved {
+  transform: translate(0,-30px) !important;
+}
+
+.aplayer-body.locked.moved {
+  transform: translate(70px,-30px) !important;
 }
 
 .aplayer-miniswitcher{
   border-radius: 0 10px 10px 0 !important;
   transition: transform 0.3s ease;
-  background-color: #39b5cc !important;
+  background-color: #39b6cc00 !important;
+  border: 0.5px solid #d8d8d8;
   cursor: pointer;
   transform: translate(5px,0);
   width: 20px !important;
 }
 
-.aplayer-body:hover{
-  transform: translate(0,-30px);
-}
+// .aplayer-body:hover{
+//   transform: translate(0,-30px);
+// }
 
-.aplayer-pic:hover{
-  transform: translate(0px,-10px) scale(1);
-  // z-index: 99;
-}
+// .aplayer-pic:hover{
+//   transform: translate(0px,-10px) scale(1);
+//   // z-index: 99;
+// }
 
 // .aplayer-body:hover .aplayer-miniswitcher{
 //   transform: translate(5px,0);
 // }
 
 .aplayer-body.locked {
-  transform: translate(0,-30px);
+  transform: translate(-20px,-30px) !important;
 }
 
 .aplayer-body.locked:hover {
-  transform: translate(0, -30px);
+  transform: translate(0, -30px) !important;
 }
 
+.aplayer-body.locked:not(:hover) {
+  transform: translate(0, -30px) !important;
+}
 
 .aplayer-pic{
   margin: 3px;
