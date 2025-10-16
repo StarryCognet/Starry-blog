@@ -35,18 +35,46 @@ export default navbar([
       },
       { text: "樱桃", icon: "pen-to-square", link: "cherry" },
       { text: "火龙果", icon: "pen-to-square", link: "dragonfruit" },
-      "tomato",
+      "electron",
       "strawberry",
     ],
   },
+  {
+    text: "工具分享",
+    icon: "pen-to-square",
+    prefix: "/tools/",
+    children: [
+      {
+        text: "A整合包",
+        icon: "pen-to-square",
+        link: "APack",
+      },
+    ],
+  },
+
   {
     text: "V2 文档",
     icon: "book",
     link: "https://theme-hope.vuejs.press/zh/",
   },
-  // "/zh/",
-  // "/zh/posts/",
-  "/gallery/gallery", // ← 加这一行
-  // "/zh/about",
-  "drive/drive",
+  // "/gallery/gallery", // ← 加这一行
+  // "drive/drive",
+  // "demo/element-plus",
+  {
+    text: "其他",
+    icon: "pen-to-square",
+    prefix: "/other/",
+    children: [
+      {
+        text: "在线相册",
+        icon: "pen-to-square",
+        link: "gallery",
+      },
+      {
+        text: "直链下载",
+        icon: "pen-to-square",
+        link: "drive",
+      },
+    ],
+  },
 ]);
