@@ -34,9 +34,10 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import { getMsg, addMsg } from '../utils/api.js'
+import { ElNotification } from 'element-plus'
 
 const msgs = ref([])
-const name = ref('匿名')
+const name = ref('')
 const msg  = ref('')
 const box  = ref(null)
 const pollingTimer = ref(null)
@@ -81,7 +82,25 @@ async function load() {
 }
 
 async function send() {
-  if (!msg.value.trim()) return
+  // 检查昵称和消息是否为空
+  if (!name.value.trim()) {
+    ElNotification({
+      title: '发送失败',
+      message: '请输入昵称',
+      type: 'warning'
+    })
+    return
+  }
+  
+  if (!msg.value.trim()) {
+    ElNotification({
+      title: '发送失败',
+      message: '请输入消息内容',
+      type: 'warning'
+    })
+    return
+  }
+  
   const timestamp = Date.now()
   const messageData = {
     name: name.value,
@@ -100,6 +119,11 @@ async function send() {
     await addMsg(messageData)
   } catch (error) {
     console.error('消息发送失败:', error)
+    ElNotification({
+      title: '发送失败',
+      message: '消息发送失败，请稍后重试',
+      type: 'error'
+    })
   }
   
   msg.value = ''
@@ -111,7 +135,7 @@ async function scrollToBottom() {
     if (box.value) {
       box.value.scrollTop = box.value.scrollHeight
     }
-  }, 0)
+  }, 500)
 }
 
 function time(t) {
