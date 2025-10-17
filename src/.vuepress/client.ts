@@ -2,6 +2,7 @@ import { defineClientConfig } from "vuepress/client";
 // import GlobalMusicPlayer from "./components/GlobalMusicPlayer.vue";
 import Not from "./components/Not.vue";
 import ElementPlus from "element-plus";
+import ChatBox from "./components/ChatBox.vue"
 import "element-plus/dist/index.css";
 import { ref, computed, watchEffect, h } from "vue";
 
@@ -10,6 +11,7 @@ export default defineClientConfig({
     app.use(ElementPlus);
     // app.component("GlobalMusicPlayer", GlobalMusicPlayer);
     app.component("Not", Not);
+    app.component("ChatBox", ChatBox);
   },
   setup() {
     if (typeof window !== "undefined") {
