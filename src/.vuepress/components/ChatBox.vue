@@ -13,6 +13,15 @@
         <el-text type="primary" size="small">{{ m.name }}</el-text>
         <el-text size="small" style="margin-left:8px;">{{ m.msg }}</el-text>
         <el-text type="info" size="mini" style="float:right">{{ time(m.ts) }}</el-text>
+        <div style="text-align: right; margin-top: 4px;">
+          <el-button 
+            type="danger" 
+            size="mini" 
+            @click="confirmDelete(m.id)"
+          >
+            删除
+          </el-button>
+        </div>
       </div>
     </div>
 
@@ -28,12 +37,35 @@
         <el-button type="primary" size="small" @click="send">发送</el-button>
       </el-col>
     </el-row>
+    
+    <!-- 删除确认对话框 -->
+    <el-dialog
+      v-model="deleteDialogVisible"
+      title="确认删除"
+      width="300px"
+      center
+    >
+      <span>确定要删除这条消息吗？</span>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button size="small" @click="deleteDialogVisible = false">取消</el-button>
+          <el-button 
+            type="primary" 
+            size="small" 
+            @click="deleteMessage"
+            :loading="deleting"
+          >
+            确认
+          </el-button>
+        </span>
+      </template>
+    </el-dialog>
   </el-card>
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-import { getMsg, addMsg } from '../utils/api.js'
+import { getMsg, addMsg, delMsg } from '../utils/api.js'
 import { ElNotification } from 'element-plus'
 
 const msgs = ref([])
@@ -42,6 +74,9 @@ const msg  = ref('')
 const box  = ref(null)
 const pollingTimer = ref(null)
 const isUserAtBottom = ref(true)
+const deleteDialogVisible = ref(false)
+const messageIdToDelete = ref(null)
+const deleting = ref(false)
 
 onMounted(async () => {
   await load()
@@ -142,5 +177,41 @@ function time(t) {
   // 处理字符串格式的时间戳
   const timestamp = typeof t === 'string' ? parseInt(t) : t
   return new Date(timestamp).toLocaleTimeString()
+}
+
+// 删除消息相关函数
+function confirmDelete(id) {
+  messageIdToDelete.value = id
+  deleteDialogVisible.value = true
+}
+
+async function deleteMessage() {
+  if (!messageIdToDelete.value) return
+  
+  deleting.value = true
+  try {
+    await delMsg(messageIdToDelete.value)
+    // 从本地列表中移除消息
+    msgs.value = msgs.value.filter(msg => msg.id !== messageIdToDelete.value)
+    
+    ElNotification({
+      title: '删除成功',
+      message: '消息已成功删除',
+      type: 'success'
+    })
+    
+    // 关闭对话框
+    deleteDialogVisible.value = false
+    messageIdToDelete.value = null
+  } catch (error) {
+    console.error('删除消息失败:', error)
+    ElNotification({
+      title: '删除失败',
+      message: '删除消息时发生错误，请稍后重试',
+      type: 'error'
+    })
+  } finally {
+    deleting.value = false
+  }
 }
 </script>
