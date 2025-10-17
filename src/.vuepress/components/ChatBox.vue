@@ -8,7 +8,7 @@
     </template>
 
     <!-- 消息区 -->
-    <div ref="box" style="height:50vh;overflow:auto;padding:0 8px;">
+    <div ref="box" style="height:50vh;overflow:auto;padding:0 8px;" @scroll="handleScroll">
       <div v-for="m in msgs" :key="m.id" style="margin-bottom:12px;">
         <el-text type="primary" size="small">{{ m.name }}</el-text>
         <el-text size="small" style="margin-left:8px;">{{ m.msg }}</el-text>
@@ -32,34 +32,91 @@
 </template>
 
 <script setup>
-import { ref, onMounted, nextTick } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { getMsg, addMsg } from '../utils/api.js'
 
 const msgs = ref([])
 const name = ref('匿名')
 const msg  = ref('')
 const box  = ref(null)
+const pollingTimer = ref(null)
+const isUserAtBottom = ref(true)
 
 onMounted(async () => {
   await load()
-  setInterval(load, 1000)   // 1 秒轮询
+  startPolling()
 })
+
+onUnmounted(() => {
+  stopPolling()
+})
+
+function startPolling() {
+  // 使用更长的轮询间隔，减少频繁刷新
+  pollingTimer.value = setInterval(load, 3000)
+}
+
+function stopPolling() {
+  if (pollingTimer.value) {
+    clearInterval(pollingTimer.value)
+    pollingTimer.value = null
+  }
+}
+
+function handleScroll() {
+  const el = box.value
+  // 检查用户是否在底部附近（允许一些误差）
+  isUserAtBottom.value = el.scrollHeight - el.scrollTop - el.clientHeight < 50
+}
 
 async function load() {
   const list = await getMsg()
+  const oldLength = msgs.value.length
   msgs.value = list
-  await nextTick()
-  box.value.scrollTop = box.value.scrollHeight
+  
+  // 只有当用户在底部或者有新消息时才滚动到底部
+  if (isUserAtBottom.value || list.length > oldLength) {
+    await scrollToBottom()
+  }
 }
 
 async function send() {
   if (!msg.value.trim()) return
-  await addMsg({ name: name.value, msg: msg.value })
+  const timestamp = Date.now()
+  const messageData = {
+    name: name.value,
+    msg: msg.value,
+    ts: timestamp.toString() // 转换为字符串格式
+  }
+  // 先在本地添加消息，提升用户体验
+  msgs.value.push({
+    ...messageData,
+    id: 'temp-' + timestamp + Math.random()
+  })
+  await scrollToBottom()
+  
+  try {
+    // 发送到服务器
+    await addMsg(messageData)
+  } catch (error) {
+    console.error('消息发送失败:', error)
+  }
+  
   msg.value = ''
-  await load()
+}
+
+async function scrollToBottom() {
+  // 使用 setTimeout 确保 DOM 已更新
+  setTimeout(() => {
+    if (box.value) {
+      box.value.scrollTop = box.value.scrollHeight
+    }
+  }, 0)
 }
 
 function time(t) {
-  return new Date(t).toLocaleTimeString()
+  // 处理字符串格式的时间戳
+  const timestamp = typeof t === 'string' ? parseInt(t) : t
+  return new Date(timestamp).toLocaleTimeString()
 }
 </script>
