@@ -10,14 +10,23 @@
     <!-- 消息区 -->
     <div ref="box" style="height:50vh;overflow:auto;padding:0 8px;" @scroll="handleScroll">
       <div v-for="m in msgs" :key="m.id" style="margin-bottom:12px;">
-        <el-text type="primary" size="small">{{ m.name }}</el-text>
+        <el-text type="primary" size="small">{{ m.user }}</el-text>
         <el-text size="small" style="margin-left:8px;">{{ m.msg }}</el-text>
-        <el-text type="info" size="mini" style="float:right">{{ time(m.ts) }}</el-text>
+        <el-text type="info" size="small" style="float:right">{{ time(m.created_at) }}</el-text>
         <div style="text-align: right; margin-top: 4px;">
           <el-button 
+            type="primary" 
+            size="small" 
+            @click="likeMessage(m)"
+            :loading="m.id === likingMessageId"
+          >
+            👍 点赞 {{ m.likes }}
+          </el-button>
+          <el-button 
             type="danger" 
-            size="mini" 
+            size="small" 
             @click="confirmDelete(m.id)"
+            style="margin-left: 8px;"
           >
             删除
           </el-button>
@@ -65,7 +74,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-import { getMsg, addMsg, delMsg } from '../utils/api.js'
+import { getMsg, addMsg, delMsg, updateMsg } from '../utils/api.js'
 import { ElNotification } from 'element-plus'
 
 const msgs = ref([])
@@ -77,6 +86,14 @@ const isUserAtBottom = ref(true)
 const deleteDialogVisible = ref(false)
 const messageIdToDelete = ref(null)
 const deleting = ref(false)
+const likingMessageId = ref(null)
+
+// 指数退避策略参数
+const baseInterval = 3000;  // 基础间隔3秒
+const maxInterval = 30000;  // 最大间隔30秒
+const intervalMultiplier = 1.5;  // 间隔倍数
+let currentInterval = baseInterval;
+let lastMessageCount = 0;
 
 onMounted(async () => {
   await load()
@@ -88,13 +105,16 @@ onUnmounted(() => {
 })
 
 function startPolling() {
-  // 使用更长的轮询间隔，减少频繁刷新
-  pollingTimer.value = setInterval(load, 3000)
+  // 使用指数退避策略，根据消息活动情况调整轮询频率
+  pollingTimer.value = setTimeout(async () => {
+    await load()
+    startPolling() // 重新调度下一次轮询
+  }, currentInterval)
 }
 
 function stopPolling() {
   if (pollingTimer.value) {
-    clearInterval(pollingTimer.value)
+    clearTimeout(pollingTimer.value)
     pollingTimer.value = null
   }
 }
@@ -106,13 +126,44 @@ function handleScroll() {
 }
 
 async function load() {
-  const list = await getMsg()
-  const oldLength = msgs.value.length
-  msgs.value = list
-  
-  // 只有当用户在底部或者有新消息时才滚动到底部
-  if (isUserAtBottom.value || list.length > oldLength) {
-    await scrollToBottom()
+  try {
+    const res = await getMsg()
+    // 根据统一响应格式处理数据
+    if (res.code === 200) {
+      const list = res.data || []
+      const oldLength = msgs.value.length
+      // 检查是否有新消息
+      const hasNewMessages = list.length > lastMessageCount;
+      lastMessageCount = list.length;
+      
+      // 按时间正序排列（老消息在前，新消息在后）
+      msgs.value = list.sort((a, b) => a.created_at - b.created_at)
+      
+      // 调整轮询频率
+      if (hasNewMessages) {
+        // 有新消息时，恢复较短的轮询间隔
+        currentInterval = baseInterval;
+      } else {
+        // 没有新消息时，逐渐增加轮询间隔
+        currentInterval = Math.min(currentInterval * intervalMultiplier, maxInterval);
+      }
+      
+      // 只有当用户在底部或者有新消息时才滚动到底部
+      if (isUserAtBottom.value || hasNewMessages) {
+        await scrollToBottom()
+      }
+    } else {
+      throw new Error(res.message || '获取消息失败')
+    }
+  } catch (error) {
+    console.error('获取消息失败:', error)
+    ElNotification({
+      title: '获取失败',
+      message: error.message || '获取消息时发生错误',
+      type: 'error'
+    })
+    // 出错时重置轮询间隔
+    currentInterval = baseInterval;
   }
 }
 
@@ -138,10 +189,12 @@ async function send() {
   
   const timestamp = Date.now()
   const messageData = {
-    name: name.value,
+    user: name.value,
     msg: msg.value,
-    ts: timestamp.toString() // 转换为字符串格式
+    likes: 0,  // 为点赞数设置默认值
+    created_at: timestamp
   }
+  
   // 先在本地添加消息，提升用户体验
   msgs.value.push({
     ...messageData,
@@ -151,17 +204,20 @@ async function send() {
   
   try {
     // 发送到服务器
-    await addMsg(messageData)
+    const res = await addMsg(messageData)
+    if (res.code === 200) {
+      msg.value = ''
+    } else {
+      throw new Error(res.message || '发送失败')
+    }
   } catch (error) {
     console.error('消息发送失败:', error)
     ElNotification({
       title: '发送失败',
-      message: '消息发送失败，请稍后重试',
+      message: error.message || '消息发送失败，请稍后重试',
       type: 'error'
     })
   }
-  
-  msg.value = ''
 }
 
 async function scrollToBottom() {
@@ -170,13 +226,48 @@ async function scrollToBottom() {
     if (box.value) {
       box.value.scrollTop = box.value.scrollHeight
     }
-  }, 500)
+  }, 100)
 }
 
 function time(t) {
-  // 处理字符串格式的时间戳
-  const timestamp = typeof t === 'string' ? parseInt(t) : t
-  return new Date(timestamp).toLocaleTimeString()
+  // 处理数字格式的时间戳
+  return new Date(t).toLocaleTimeString()
+}
+
+// 点赞消息函数
+async function likeMessage(message) {
+  const id = message.id;
+  likingMessageId.value = id
+  try {
+    // 构造更新数据，只更新likes字段
+    const updateData = {
+      id: id,
+      likes: (message.likes || 0) + 1
+    };
+    
+    const res = await updateMsg(updateData)
+    if (res.code === 200) {
+      // 更新本地消息的点赞数
+      message.likes = updateData.likes;
+      
+      ElNotification({
+        title: '点赞成功',
+        message: '感谢您的点赞！',
+        type: 'success'
+      })
+    } else {
+      throw new Error(res.message || '点赞失败')
+    }
+  } catch (error) {
+    console.error('点赞失败:', error)
+    ElNotification({
+      title: '点赞失败',
+      message: error.message || '点赞时发生错误，请稍后重试',
+      type: 'error'
+    })
+  } finally {
+    likingMessageId.value = null
+  }
 }
 
 // 删除消息相关函数
@@ -190,24 +281,28 @@ async function deleteMessage() {
   
   deleting.value = true
   try {
-    await delMsg(messageIdToDelete.value)
-    // 从本地列表中移除消息
-    msgs.value = msgs.value.filter(msg => msg.id !== messageIdToDelete.value)
-    
-    ElNotification({
-      title: '删除成功',
-      message: '消息已成功删除',
-      type: 'success'
-    })
-    
-    // 关闭对话框
-    deleteDialogVisible.value = false
-    messageIdToDelete.value = null
+    const res = await delMsg(messageIdToDelete.value)
+    if (res.code === 200) {
+      // 从本地列表中移除消息
+      msgs.value = msgs.value.filter(msg => msg.id !== messageIdToDelete.value)
+      
+      ElNotification({
+        title: '删除成功',
+        message: '消息已成功删除',
+        type: 'success'
+      })
+      
+      // 关闭对话框
+      deleteDialogVisible.value = false
+      messageIdToDelete.value = null
+    } else {
+      throw new Error(res.message || '删除失败')
+    }
   } catch (error) {
     console.error('删除消息失败:', error)
     ElNotification({
       title: '删除失败',
-      message: '删除消息时发生错误，请稍后重试',
+      message: error.message || '删除消息时发生错误，请稍后重试',
       type: 'error'
     })
   } finally {

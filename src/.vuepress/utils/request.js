@@ -3,7 +3,7 @@ import { ElMessage } from "element-plus";
 
 // ① 实例
 const instance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || "https://api.starrycognition.cn",
+  baseURL: import.meta.env.VITE_API_BASE_URL || "https://apis.starrycognition.cn",
   timeout: 10000,
 });
 

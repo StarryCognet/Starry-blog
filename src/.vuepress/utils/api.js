@@ -27,20 +27,12 @@ import { get, post, upload as _upload } from "./request.js";
 /* ===== 通用 CRUD（任何表都能用） ===== */
 export const list = (table, params) => get(`/api/${table}/list`, params);
 export const add = (table, data) => post(`/api/${table}/add`, data);
-export const del = (table, id) => post(`/api/${table}/delete`, { id });
-export const like = (table, id) => post(`/api/${table}/like`, { id });
+export const update = (table, data) => post(`/api/${table}/update`, data);
+export const del = (table, id) => post(`/api/${table}/del`, { id });
 export const upload = (file, extra) => _upload("/api/upload", file, extra);
 
-// /* ===== 留言板快捷函数 ===== */
-// export const getMsg = () => list("msg");
-// export const addMsg = (data) => add("msg", data);
-// export const delMsg = (id) => del("msg", id);
-// export const likeMsg = (id) => like("msg", id);
-
-
 /* ===== 留言板快捷函数 ===== */
-// 修改为直接访问/msg接口而不是/msg/list
-export const getMsg = () => get("/api/msg");
-export const addMsg = (data) => post("/api/msg", data);
-export const delMsg = (id) => post("/api/msg/delete", { id });
-export const likeMsg = (id) => post("/api/msg/like", { id });
+export const getMsg = () => get("/api/messages/get");
+export const addMsg = (data) => post("/api/messages/add", data);
+export const updateMsg = (data) => post("/api/messages/update", data);
+export const delMsg = (id) => post("/api/messages/del", { id });
