@@ -215,7 +215,8 @@ function stopPolling() {
 }
 
 function handleScroll() {
-  const el = box.value  isUserAtBottom.value = el.scrollHeight - el.scrollTop - el.clientHeight < 50
+  const el = box.value
+  isUserAtBottom.value = el.scrollHeight - el.scrollTop - el.clientHeight < 50
 }
 
 async function load() {
