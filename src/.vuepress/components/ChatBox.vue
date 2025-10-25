@@ -215,9 +215,7 @@ function stopPolling() {
 }
 
 function handleScroll() {
-  const el = box.value
-  // 检查用户是否在底部附近（允许一些误差）
-  isUserAtBottom.value = el.scrollHeight - el.scrollTop - el.clientHeight < 50
+  const el = box.value  isUserAtBottom.value = el.scrollHeight - el.scrollTop - el.clientHeight < 50
 }
 
 async function load() {
