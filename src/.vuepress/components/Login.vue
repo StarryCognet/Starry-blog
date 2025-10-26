@@ -1,7 +1,7 @@
 <template>
   <el-card shadow="never" style="max-width: 400px; margin: 50px auto;">
     <div style="text-align: center; margin-bottom: 24px;">
-      <h2>登录 Starry-Blog</h2>
+      <h2>登录 StarryCognition</h2>
     </div>
 
     <!-- 用户名密码登录表单 -->

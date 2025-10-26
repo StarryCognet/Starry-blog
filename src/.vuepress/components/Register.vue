@@ -1,7 +1,7 @@
 <template>
   <el-card shadow="never" style="max-width: 400px; margin: 50px auto;">
     <div style="text-align: center; margin-bottom: 24px;">
-      <h2>注册 Starry-Blog</h2>
+      <h2>注册 StarryCognition</h2>
     </div>
 
     <!-- 注册表单 -->
@@ -186,7 +186,7 @@ const handleRegister = async () => {
     // 由于拦截器已经处理了响应，直接显示成功消息
     ElNotification.success({
       title: '注册成功',
-      message: '欢迎加入Starry-Blog！'
+      message: '欢迎加入StarryCognition！'
     })
     
     // 延迟跳转到登录页
