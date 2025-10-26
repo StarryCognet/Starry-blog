@@ -78,4 +78,5 @@ export default navbar([
       },
     ],
   },
+  { text: '👤', link: '/profile.html' },
 ]);

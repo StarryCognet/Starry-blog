@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@iconify/vue": "^5.0.0",
+    "@types/vue-router": "^2.0.0",
     "@vuepress/bundler-vite": "2.0.0-rc.24",
     "sass-embedded": "^1.89.2",
     "unplugin-auto-import": "^20.2.0",
@@ -28,7 +29,9 @@
     ]
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.3.2",
     "axios": "^1.12.2",
-    "element-plus": "^2.11.4"
+    "element-plus": "^2.11.4",
+    "vue-router": "^4.6.3"
   }
 }

@@ -1,9 +1,9 @@
 <template>
-  <el-card shadow="never" style="max-width:1200px;margin:0 auto;">
+  <el-card shadow="never" style="max-width:1400px;margin:0 auto;">
     <!-- 使用flex布局 -->
     <div style="display: flex; gap: 20px;">
       <!-- 排行榜区域 -->
-      <div style="min-width: 100px; border-right: 1px solid var(--vp-c-divider); padding-right: 20px;">
+      <div style="min-width: 10px; border-right: 1px solid var(--vp-c-divider); padding-right: 20px;">
         <h3 style="text-align: center; margin-bottom: 16px; color: var(--vp-c-brand);">🏆 排行榜</h3>
         <el-table 
           :data="rankings" 
@@ -92,31 +92,64 @@
 
         <!-- 输入区 -->
         <div style="margin-top: 12px;">
-          <!-- 昵称输入框移到上方 -->
-          <el-row :gutter="8" style="margin-bottom: 8px;">
-            <el-col :span="24">
-              <el-input v-model="name" placeholder="请输入您的昵称" size="small" />
-            </el-col>
-          </el-row>
+          <!-- 已登录显示用户名，未登录显示登录提示 -->
+          <div v-if="isLogin" style="margin-bottom: 8px;">
+            <el-tag type="success" size="small">当前用户: {{ currentUsername }}</el-tag>
+          </div>
           
-          <!-- 消息输入框 -->
           <el-row :gutter="8">
             <el-col :span="18">
-              <el-input 
-                v-model="msg" 
-                type="textarea"
-                :rows="3"
-                placeholder="在此输入消息内容，支持多行输入"
-                size="small" 
-                @keydown.enter.exact.prevent="send"
-                @keydown.shift.enter.exact.prevent="addNewLine"
-              />
-              <div style="margin-top: 4px; font-size: 12px; color: #909399;">
-                Shift + Enter 换行
+              <div :style="isLogin ? {} : { 
+                position: 'relative',
+                filter: 'blur(5px)',
+                pointerEvents: 'none'
+              }">
+                <el-input 
+                  v-model="msg" 
+                  type="textarea"
+                  :rows="3"
+                  placeholder="在此输入消息内容，支持多行输入"
+                  size="small" 
+                  @keydown.enter.exact.prevent="send"
+                  @keydown.shift.enter.exact.prevent="addNewLine"
+                />
+                <div style="margin-top: 4px; font-size: 12px; color: #909399;">
+                  Shift + Enter 换行
+                </div>
+              </div>
+              
+              <!-- 未登录时显示遮罩和提示 -->
+              <div v-if="!isLogin" :style="{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                borderRadius: '4px',
+                zIndex: 10
+              }">
+                <div style="font-size: 16px; margin-bottom: 16px; color: #666;">
+                  登录后才能发言
+                </div>
+                <el-button type="primary" size="small" @click="goToLogin">
+                  立即登录
+                </el-button>
               </div>
             </el-col>
             <el-col :span="6">
-              <el-button type="primary" size="small" @click="send" style="width: 100%;">发送</el-button>
+              <el-button 
+                type="primary" 
+                size="small" 
+                @click="send" 
+                :disabled="!isLogin"
+                style="width: 100%;">
+                发送
+              </el-button>
             </el-col>
           </el-row>
         </div>
@@ -149,12 +182,16 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { ref, onMounted, onUnmounted, computed, reactive } from 'vue'
 import { getMsg, addMsg, delMsg, updateMsg } from '../utils/api.js'
 import { ElNotification } from 'element-plus'
+import { useRouter } from 'vue-router'
+import { authStore, isLogin, currentUsername } from '../stores/auth.ts'
+
+// 恢复认证状态
+authStore.restore()
 
 const msgs = ref([])
-const name = ref('')
 const msg  = ref('')
 const box  = ref(null)
 const pollingTimer = ref(null)
@@ -163,6 +200,38 @@ const deleteDialogVisible = ref(false)
 const messageIdToDelete = ref(null)
 const deleting = ref(false)
 const likingMessageId = ref(null)
+const isLoginChecked = ref(false) // 添加登录状态检查标志
+
+const router = useRouter()
+
+/**
+ * 显示错误通知
+ * @param {Error} error - 错误对象
+ * @param {string} defaultTitle - 默认通知标题
+ */
+const showErrorNotification = (error, defaultTitle = '操作失败') => {
+  // 定义常见的网络错误关键词
+  const networkErrorKeywords = ['Network Error', '网络错误', 'Failed to fetch', '请求超时'];
+  let message = error.message || '未知错误';
+  let title = defaultTitle;
+
+  // 根据错误信息判断是否为网络错误
+  if (networkErrorKeywords.some(keyword => message.includes(keyword))) {
+    message = '网络连接异常，请检查您的网络设置';
+    title = '网络错误';
+  }
+  // 对于服务器返回的具体错误，使用其消息
+  else if (message && !message.includes('获取消息失败') && !message.includes('消息发送失败')) {
+    // 这里保留服务器返回的特定错误信息
+    title = defaultTitle;
+  }
+
+  ElNotification({
+    title,
+    message,
+    type: 'error'
+  });
+};
 
 // 计算排行榜数据
 const rankings = computed(() => {
@@ -194,6 +263,16 @@ const rankings = computed(() => {
 })
 
 onMounted(async () => {
+  // 检查登录状态
+  if (authStore.accessToken) {
+    try {
+      await authStore.checkLoginStatus()
+    } catch (error) {
+      console.error('检查登录状态失败:', error)
+    }
+  }
+  isLoginChecked.value = true
+  
   await load()
   startPolling()
 })
@@ -222,41 +301,41 @@ function handleScroll() {
 async function load() {
   try {
     const res = await getMsg()
-    // 更加健壮的响应判断逻辑
-    if (res && (res.code === 200 || res.success || (!res.error && res.error !== false) || Array.isArray(res))) {
-      const list = Array.isArray(res) ? res : (res.data || [])
+    console.log('获取消息响应:', res)
+    
+    // 由于拦截器已经处理了响应，直接使用返回的数据
+    // res 就是消息数组 [{id, user, msg, likes, created_at}, ...]
+    if (Array.isArray(res)) {
       const oldLength = msgs.value.length
       // 按时间正序排列（老消息在前，新消息在后）
-      msgs.value = list.sort((a, b) => a.created_at - b.created_at)
+      msgs.value = res.sort((a, b) => a.created_at - b.created_at)
       
       // 只有当用户在底部或者有新消息时才滚动到底部
-      if (isUserAtBottom.value || list.length > oldLength) {
+      if (isUserAtBottom.value || res.length > oldLength) {
         await scrollToBottom()
       }
-    } else if (res && res.code !== 200) {
-      // 如果响应中包含错误信息，则抛出具体错误
-      throw new Error(res.message || res.msg || '获取消息失败')
+    } else {
+      // 如果响应不是数组，抛出错误
+      throw new Error('数据格式错误')
     }
-    // 如果res为null或undefined，不执行任何操作，避免错误提示
   } catch (error) {
     console.error('获取消息失败:', error)
-    // 只有在确实发生错误时才显示通知
-    if (error.message && error.message !== '获取消息失败') {
-      ElNotification({
-        title: '获取失败',
-        message: error.message || '获取消息时发生错误',
-        type: 'error'
-      })
-    }
+    // 使用统一的错误处理函数
+    showErrorNotification(error, '获取失败');
   }
 }
 
+// 跳转到登录页面
+function goToLogin() {
+  router.push('/login.html')
+}
+
 async function send() {
-  // 检查昵称和消息是否为空
-  if (!name.value.trim()) {
+  // 检查是否已登录
+  if (!isLogin.value) {
     ElNotification({
       title: '发送失败',
-      message: '请输入昵称',
+      message: '请先登录后再发言',
       type: 'warning'
     })
     return
@@ -273,7 +352,7 @@ async function send() {
   
   const timestamp = Date.now()
   const messageData = {
-    user: name.value,
+    user: currentUsername.value, // 使用登录用户的用户名
     msg: msg.value,
     likes: 0,  // 为点赞数设置默认值
     created_at: timestamp
@@ -289,25 +368,21 @@ async function send() {
   try {
     // 发送到服务器
     const res = await addMsg(messageData)
-    // 根据API响应结构调整判断条件
-    if (res && (res.code === 200 || res.success || !res.error)) {
+    // 由于拦截器已经处理了响应，直接检查res是否存在
+    if (res) {
       msg.value = ''
       // 添加成功提示
-      ElNotification({
+      ElNotification.success({
         title: '发送成功',
-        message: '消息发送成功',
-        type: 'success'
+        message: '消息发送成功'
       })
     } else {
-      throw new Error(res.message || res.msg || '发送失败')
+      throw new Error('发送失败')
     }
   } catch (error) {
     console.error('消息发送失败:', error)
-    ElNotification({
-      title: '发送失败',
-      message: error.message || '消息发送失败，请稍后重试',
-      type: 'error'
-    })
+    // 使用统一的错误处理函数
+    showErrorNotification(error, '发送失败');
   }
 }
 
@@ -340,6 +415,16 @@ function time(t) {
 
 // 点赞消息函数
 async function likeMessage(message) {
+  // 检查是否已登录
+  if (!isLogin.value) {
+    ElNotification({
+      title: '点赞失败',
+      message: '请先登录后再点赞',
+      type: 'warning'
+    })
+    return
+  }
+  
   const id = message.id;
   likingMessageId.value = id
   try {
@@ -350,26 +435,22 @@ async function likeMessage(message) {
     };
     
     const res = await updateMsg(updateData)
-    // 根据API响应结构调整判断条件
-    if (res && (res.code === 200 || res.success || !res.error)) {
+    // 由于拦截器已经处理了响应，直接检查res是否存在
+    if (res) {
       // 更新本地消息的点赞数
       message.likes = updateData.likes;
       
-      ElNotification({
+      ElNotification.success({
         title: '点赞成功',
-        message: '感谢您的点赞！',
-        type: 'success'
+        message: '感谢您的点赞！'
       })
     } else {
-      throw new Error(res.message || res.msg || '点赞失败')
+      throw new Error('点赞失败')
     }
   } catch (error) {
     console.error('点赞失败:', error)
-    ElNotification({
-      title: '点赞失败',
-      message: error.message || '点赞时发生错误，请稍后重试',
-      type: 'error'
-    })
+    // 使用统一的错误处理函数
+    showErrorNotification(error, '点赞失败');
   } finally {
     likingMessageId.value = null
   }
@@ -387,30 +468,26 @@ async function deleteMessage() {
   deleting.value = true
   try {
     const res = await delMsg(messageIdToDelete.value)
-    // 根据API响应结构调整判断条件
-    if (res && (res.code === 200 || res.success || !res.error)) {
+    // 由于拦截器已经处理了响应，直接检查res是否存在
+    if (res) {
       // 从本地列表中移除消息
       msgs.value = msgs.value.filter(msg => msg.id !== messageIdToDelete.value)
       
-      ElNotification({
+      ElNotification.success({
         title: '删除成功',
-        message: '消息已成功删除',
-        type: 'success'
+        message: '消息已成功删除'
       })
       
       // 关闭对话框
       deleteDialogVisible.value = false
       messageIdToDelete.value = null
     } else {
-      throw new Error(res.message || res.msg || '删除失败')
+      throw new Error('删除失败')
     }
   } catch (error) {
     console.error('删除消息失败:', error)
-    ElNotification({
-      title: '删除失败',
-      message: error.message || '删除消息时发生错误，请稍后重试',
-      type: 'error'
-    })
+    // 使用统一的错误处理函数
+    showErrorNotification(error, '删除失败');
   } finally {
     deleting.value = false
   }

@@ -12,7 +12,7 @@ next: false
 comment: false
 ---
 
-<style>
+<!-- <style>
 .vp-content:not(.custom) {
   max-width: none !important;
   margin: 0 !important;
@@ -34,7 +34,7 @@ main {
   left: 0;
   z-index: 1000;
 }
-</style>
+</style> -->
 
 <div class="chat-fullscreen">
   <ChatBox />

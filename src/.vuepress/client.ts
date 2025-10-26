@@ -3,8 +3,12 @@ import { defineClientConfig } from "vuepress/client";
 import Not from "./components/Not.vue";
 import ElementPlus from "element-plus";
 import ChatBox from "./components/ChatBox.vue"
+import Login from "./components/Login.vue"
+import Register from "./components/Register.vue"
+import Profile from "./components/Profile.vue"
 import "element-plus/dist/index.css";
 import { ref, computed, watchEffect, h } from "vue";
+import { useRouter } from "vue-router";
 
 export default defineClientConfig({
   enhance({ app }) {
@@ -12,6 +16,9 @@ export default defineClientConfig({
     // app.component("GlobalMusicPlayer", GlobalMusicPlayer);
     app.component("Not", Not);
     app.component("ChatBox", ChatBox);
+    app.component("Login", Login);
+    app.component("Register", Register);
+    app.component("Profile", Profile);
   },
   setup() {
     if (typeof window !== "undefined") {
@@ -70,6 +77,18 @@ export default defineClientConfig({
           }
         });
       });*/
+
+      // 全局路由守卫
+      const router = useRouter();
+      router.beforeEach((to) => {
+        const protectedPages = ['/profile.html']; // 只有这些页面需要登录
+        const needAuth = protectedPages.includes(to.path);
+        const token = localStorage.getItem('accessToken');
+        if (needAuth && !token) {
+          return '/login.html?redirect=' + encodeURIComponent(to.fullPath);
+        }
+      });
     }
   },
+  rootComponents: []
 });

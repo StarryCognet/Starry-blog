@@ -8,16 +8,25 @@ importers:
 
   .:
     dependencies:
+      '@element-plus/icons-vue':
+        specifier: ^2.3.2
+        version: 2.3.2(vue@3.5.21)
       axios:
         specifier: ^1.12.2
         version: 1.12.2
       element-plus:
         specifier: ^2.11.4
         version: 2.11.4(vue@3.5.21)
+      vue-router:
+        specifier: ^4.6.3
+        version: 4.6.3(vue@3.5.21)
     devDependencies:
       '@iconify/vue':
         specifier: ^5.0.0
         version: 5.0.0(vue@3.5.21)
+      '@types/vue-router':
+        specifier: ^2.0.0
+        version: 2.0.0(vue@3.5.21)
       '@vuepress/bundler-vite':
         specifier: 2.0.0-rc.24
         version: 2.0.0-rc.24(@types/node@24.5.2)(sass-embedded@1.92.1)(sass@1.92.1)
@@ -831,6 +840,10 @@ packages:
 
   '@types/unist@3.0.3':
     resolution: {integrity: sha512-ko/gIFJRv177XgZsZcBwnqJN5x/Gien8qNOn0D5bQU/zAzVf9Zt3BlcUiLqhV9y4ARk0GbT3tnUiPNgnTXzc/Q==}
+
+  '@types/vue-router@2.0.0':
+    resolution: {integrity: sha512-E454lQ6tp9ftVWdZ8VGZpRcIV4YeqVAcx/uifl3P1GGwscYsxOFdYfgIuKasKO0Fm6Np2JM/L378D3bcRQE9hg==}
+    deprecated: This is a stub types definition for vue-router (https://github.com/vuejs/vue-router). ecmarkup provides its own type definitions, so you don\'t need @types/ecmarkup installed!
 
   '@types/web-bluetooth@0.0.16':
     resolution: {integrity: sha512-oh8q2Zc32S6gd/j50GowEjKLoOVOwHP/bWVjKJInBwQqdOYMdPrf1oVlelTlyfFK3CKxL1uahMDAr+vy8T7yMQ==}
@@ -2457,10 +2470,10 @@ packages:
       '@vue/composition-api':
         optional: true
 
-  vue-router@4.5.1:
-    resolution: {integrity: sha512-ogAF3P97NPm8fJsE4by9dwSYtDwXIY1nFY9T6DyQnGHd1E2Da94w9JIolpe42LJGIl0DwOHBi8TcRPlPGwbTtw==}
+  vue-router@4.6.3:
+    resolution: {integrity: sha512-ARBedLm9YlbvQomnmq91Os7ck6efydTSpRP3nuOKCvgJOHNrhRoJDSKtee8kcL1Vf7nz6U+PMBL+hTvR3bTVQg==}
     peerDependencies:
-      vue: ^3.2.0
+      vue: ^3.5.0
 
   vue@3.5.21:
     resolution: {integrity: sha512-xxf9rum9KtOdwdRkiApWL+9hZEMWE90FHh8yS1+KJAiWYh+iGWV1FquPjoO9VUHQ+VIhsCXNNyZ5Sf4++RVZBA==}
@@ -3241,6 +3254,12 @@ snapshots:
 
   '@types/unist@3.0.3': {}
 
+  '@types/vue-router@2.0.0(vue@3.5.21)':
+    dependencies:
+      vue-router: 4.6.3(vue@3.5.21)
+    transitivePeerDependencies:
+      - vue
+
   '@types/web-bluetooth@0.0.16': {}
 
   '@types/web-bluetooth@0.0.21': {}
@@ -3342,7 +3361,7 @@ snapshots:
       rollup: 4.50.2
       vite: 7.0.7(@types/node@24.5.2)(sass-embedded@1.92.1)(sass@1.92.1)
       vue: 3.5.21
-      vue-router: 4.5.1(vue@3.5.21)
+      vue-router: 4.6.3(vue@3.5.21)
     transitivePeerDependencies:
       - '@types/node'
       - jiti
@@ -3365,7 +3384,7 @@ snapshots:
       '@vuepress/shared': 2.0.0-rc.24
       '@vuepress/utils': 2.0.0-rc.24
       vue: 3.5.21
-      vue-router: 4.5.1(vue@3.5.21)
+      vue-router: 4.6.3(vue@3.5.21)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -3389,7 +3408,7 @@ snapshots:
       '@vue/devtools-kit': 7.7.7
       '@vuepress/shared': 2.0.0-rc.24
       vue: 3.5.21
-      vue-router: 4.5.1(vue@3.5.21)
+      vue-router: 4.6.3(vue@3.5.21)
     transitivePeerDependencies:
       - typescript
 
@@ -5126,7 +5145,7 @@ snapshots:
     dependencies:
       vue: 3.5.21
 
-  vue-router@4.5.1(vue@3.5.21):
+  vue-router@4.6.3(vue@3.5.21):
     dependencies:
       '@vue/devtools-api': 6.6.4
       vue: 3.5.21
