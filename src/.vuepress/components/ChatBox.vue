@@ -3,7 +3,7 @@
     <!-- 使用flex布局 -->
     <div style="display: flex; gap: 20px;">
       <!-- 排行榜区域 -->
-      <div style="min-width: 300px; border-right: 1px solid var(--vp-c-divider); padding-right: 20px;">
+      <div style="min-width: 100px; border-right: 1px solid var(--vp-c-divider); padding-right: 20px;">
         <h3 style="text-align: center; margin-bottom: 16px; color: var(--vp-c-brand);">🏆 排行榜</h3>
         <el-table 
           :data="rankings" 
@@ -44,7 +44,7 @@
       </div>
       
       <!-- 原有聊天区域 -->
-      <div style="flex: 1;">
+      <div style="flex: 1;min-width: 300px;">
         <div style="display:flex;align-items:center; margin-bottom: 16px;">
           <el-avatar size="small">💬</el-avatar>
           <span style="margin-left:8px">实时聊天</span>
@@ -418,7 +418,7 @@ async function deleteMessage() {
 </script>
 
 <style scoped>
-.ranking-header {
+/* .ranking-header {
   background-color: var(--vp-c-bg-soft) !important;
   font-weight: bold;
   border-radius: 8px 8px 0 0 !important;
@@ -438,7 +438,7 @@ async function deleteMessage() {
   margin: 0 auto;
   font-weight: bold;
   color: white;
-}
+} */
 
 .rank-1 {
   background: linear-gradient(135deg, #FFD700, #FFA500);
