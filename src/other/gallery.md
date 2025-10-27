@@ -9,7 +9,7 @@ icon: photo
 
 <!-- 自动循环输出 1.png ~ N.png -->
 <PhotoSwipe class='PhotoSwipe'>
-  <template v-for="i in Array.from({length: 30}, (_, i) => i + 1)">
+  <template v-for="i in Array.from({length: 54}, (_, i) => i + 1)">
     <img :src="`https://img.starrycognition.cn/gallery/${i}.png`" :alt="`图 ${i}`" />
   </template>
 </PhotoSwipe>
