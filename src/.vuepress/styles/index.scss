@@ -51,13 +51,13 @@
 //   background-color: rgba(51, 131, 145, 0) !important;
 // }
 
-.aplayer-body.moved {
-  transform: translate(0,-30px) !important;
-}
+// .aplayer-body.moved {
+//   transform: translate(0,-30px) !important;
+// }
 
-.aplayer-body.locked.moved {
-  transform: translate(70px,-30px) !important;
-}
+// .aplayer-body.locked.moved {
+//   transform: translate(70px,-30px) !important;
+// }
 
 // .aplayer-miniswitcher{
 //   border-radius: 0 10px 10px 0 !important;
@@ -82,17 +82,17 @@
 //   transform: translate(5px,0);
 // }
 
-.aplayer-body.locked {
-  transform: translate(-20px,-30px) !important;
-}
+// .aplayer-body.locked {
+//   transform: translate(-20px,-30px) !important;
+// }
 
-.aplayer-body.locked:hover {
-  transform: translate(0, -30px) !important;
-}
+// .aplayer-body.locked:hover {
+//   transform: translate(0, -30px) !important;
+// }
 
-.aplayer-body.locked:not(:hover) {
-  transform: translate(0, -30px) !important;
-}
+// .aplayer-body.locked:not(:hover) {
+//   transform: translate(0, -30px) !important;
+// }
 
 // .aplayer-pic{
 //   margin: 3px;
