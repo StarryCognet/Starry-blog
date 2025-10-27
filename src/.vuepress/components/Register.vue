@@ -127,9 +127,9 @@ const handleRegister = async () => {
     return
   }
   
-  if (form.username.length < 3 || form.username.length > 20) {
-    ElMessage.warning('用户名长度应为3-20位')
-    return
+  if (form.username.length < 1 || form.username.length > 20) {
+    ElMessage.warning('用户名长度应为1-20位')
+    retur
   }
   
   if (form.password.length < 6) {
